@@ -1,6 +1,6 @@
 # Assignment 2 - Temperature Converter
 ## Due 10-10-2016
-## Author
+## Author: Chad Cunningham
 
 ## Description
 
@@ -43,5 +43,6 @@ The book does not cover how to do work with Radio Buttons. I will talk about it 
 | Total                    | 100    |
 
 ## Outside Resources Used
-
+None
 ## Known Problems, Issues, And/Or Errors in the Program
+None
