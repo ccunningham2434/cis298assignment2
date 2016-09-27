@@ -44,69 +44,155 @@ public class TemperatureConverter extends AppCompatActivity {
     }
 
     private void convertTemperature(int fromScaleId, int toScaleId) {
-        try {
-            // >Get the text as a string and try to parse it to a double.
-            double temperature = Double.parseDouble(mTemperatureInput.getText().toString());
-
-            switch (fromScaleId) {
-                case R.id.from_celsius_radiobutton:
-                    switch (toScaleId) {
-                        case R.id.to_celsius_radiobutton:
-                            break;
-                        case R.id.to_fahrenheit_radiobutton:
-                            break;
-                        case R.id.to_kelvin_radiobutton:
-                            break;
-                        case R.id.to_rankin_radiobutton:
-                            break;
-                    }
-                    break;
-                case R.id.from_fahrenheit_radiobutton:
-                    switch (toScaleId) {
-                        case R.id.to_celsius_radiobutton:
-                            break;
-                        case R.id.to_fahrenheit_radiobutton:
-                            break;
-                        case R.id.to_kelvin_radiobutton:
-                            break;
-                        case R.id.to_rankin_radiobutton:
-                            break;
-                    }
-                    break;
-                case R.id.from_kelvin_radiobutton:
-                    switch (toScaleId) {
-                        case R.id.to_celsius_radiobutton:
-                            break;
-                        case R.id.to_fahrenheit_radiobutton:
-                            break;
-                        case R.id.to_kelvin_radiobutton:
-                            break;
-                        case R.id.to_rankin_radiobutton:
-                            break;
-                    }
-                    break;
-                case R.id.from_rankin_radiobutton:
-                    switch (toScaleId) {
-                        case R.id.to_celsius_radiobutton:
-                            break;
-                        case R.id.to_fahrenheit_radiobutton:
-                            break;
-                        case R.id.to_kelvin_radiobutton:
-                            break;
-                        case R.id.to_rankin_radiobutton:
-                            break;
-                    }
-                    break;
-            }
-            mConversionTextView.setText(Double.toString(temperature));
-        } catch (Exception e) {
-            mConversionTextView.setText("You must enter a temperature!");
+        // >Check if the input was valid.
+        if (!validateInput()) {
+            mConversionTextView.setText(R.string.error_no_input);
+            return;
         }
+        // >Check that the temperature scales where selected.
+        if (!validateScales()) {
+            mConversionTextView.setText(R.string.error_scales_not_selected);
+            return;
+        }
+
+        boolean sameScales = false;// >If we are converting from and to the same scale.
+
+        // >Get the text as a string and parse it to a double.(this was checked by validateInput())
+        double temperature = Double.parseDouble(mTemperatureInput.getText().toString());
+        double convertedTemperature = 0.0d;// >The temperature after conversion.
+        String conversionFormula = "";// >The formula used for conversion.
+
+        String abvFrom = "";// >The 'from' scale's abbreviation.
+        String abvTo = "";// >The 'to' scale's abbreviation.
+
+        // >Set the 'to' abbreviation.
+        switch (toScaleId) {
+            case R.id.to_celsius_radiobutton:
+                abvTo = "C";
+                break;
+            case R.id.to_fahrenheit_radiobutton:
+                abvTo = "F";
+                break;
+            case R.id.to_kelvin_radiobutton:
+                abvTo = "K";
+                break;
+            case R.id.to_rankin_radiobutton:
+                abvTo = "R";
+                break;
+        }
+
+        // >Set the 'from' abbreviation and get the converted temperature.
+        switch (fromScaleId) {
+            case R.id.from_celsius_radiobutton:
+                abvFrom = "C";
+                switch (toScaleId) {
+                    case R.id.to_celsius_radiobutton:
+                        sameScales = true;
+                        break;
+                    case R.id.to_fahrenheit_radiobutton:
+                        convertedTemperature = TConverter.celsiusToFahrenheit(temperature);
+                        conversionFormula = TConverter.mCelsiusToFarenheitFormula;
+                        break;
+                    case R.id.to_kelvin_radiobutton:
+                        convertedTemperature = TConverter.celsiusToKelvin(temperature);
+                        conversionFormula = TConverter.mCelsiusToKelvinFormula;
+                        break;
+                    case R.id.to_rankin_radiobutton:
+                        convertedTemperature = TConverter.celsiusToRankin(temperature);
+                        conversionFormula = TConverter.mCelsiusToRankinFormula;
+                        break;
+                }
+                break;
+            case R.id.from_fahrenheit_radiobutton:
+                abvFrom = "F";
+                switch (toScaleId) {
+                    case R.id.to_celsius_radiobutton:
+                        convertedTemperature = TConverter.fahrenheitToCelsius(temperature);
+                        conversionFormula = TConverter.mFahrenheitToCelsius;
+                        break;
+                    case R.id.to_fahrenheit_radiobutton:
+                        sameScales = true;
+                        break;
+                    case R.id.to_kelvin_radiobutton:
+                        convertedTemperature = TConverter.fahrenheitToKelvin(temperature);
+                        conversionFormula = TConverter.mFahrenheitToKelvin;
+                        break;
+                    case R.id.to_rankin_radiobutton:
+                        convertedTemperature = TConverter.fahrenheitToRankine(temperature);
+                        conversionFormula = TConverter.mFahrenheitToRankine;
+                        break;
+                }
+                break;
+            case R.id.from_kelvin_radiobutton:
+                abvFrom = "K";
+                switch (toScaleId) {
+                    case R.id.to_celsius_radiobutton:
+                        convertedTemperature = TConverter.kelvinToCelsius(temperature);
+                        conversionFormula = TConverter.mKelvinToCelsius;
+                        break;
+                    case R.id.to_fahrenheit_radiobutton:
+                        convertedTemperature = TConverter.kelvinToFahrenheit(temperature);
+                        conversionFormula = TConverter.mKelvinToFahrenheit;
+                        break;
+                    case R.id.to_kelvin_radiobutton:
+                        sameScales = true;
+                        break;
+                    case R.id.to_rankin_radiobutton:
+                        convertedTemperature = TConverter.kelvinToRankine(temperature);
+                        conversionFormula = TConverter.mKelvinToRankine;
+                        break;
+                }
+                break;
+            case R.id.from_rankin_radiobutton:
+                abvFrom = "R";
+                switch (toScaleId) {
+                    case R.id.to_celsius_radiobutton:
+                        convertedTemperature = TConverter.rankineToCelsius(temperature);
+                        conversionFormula = TConverter.mRankineToCelsius;
+                        break;
+                    case R.id.to_fahrenheit_radiobutton:
+                        convertedTemperature = TConverter.rankineToFahrenheit(temperature);
+                        conversionFormula = TConverter.mRankineToFahrenheit;
+                        break;
+                    case R.id.to_kelvin_radiobutton:
+                        convertedTemperature = TConverter.rankineToKelvin(temperature);
+                        conversionFormula = TConverter.mRankineToKelvin;
+                        break;
+                    case R.id.to_rankin_radiobutton:
+                        sameScales = true;
+                        break;
+                }
+                break;
+        }
+
+
+        if (sameScales) {
+            convertedTemperature = temperature;
+            conversionFormula = "[" + abvFrom + "] = [" + abvTo + "]";
+        }
+        mConversionTextView.setText(Double.toString(temperature) + abvFrom + " = " + Double.toString(convertedTemperature) + abvTo);
+        mFormulaTextView.setText(conversionFormula);
     }
 
+    private void sameConversion() {
 
+    }
 
+    private boolean validateInput() {
+        boolean isValid = false;
+        try {
+            // >Get the text as a string and try to parse it to a double.
+            double inputTemperature = Double.parseDouble(mTemperatureInput.getText().toString());
+            isValid = true;
+        } catch (Exception e) {
 
+        }
+        return  isValid;
+    }
+
+    private boolean validateScales() {
+        return (mFromGroup.getCheckedRadioButtonId() != -1 && mToGroup.getCheckedRadioButtonId() != -1);
+    }
 
 
 

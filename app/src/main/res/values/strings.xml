@@ -10,8 +10,10 @@
     <string name="kelvin_radiobutton">Kelvin</string>
     <string name="rankin_radiobutton">Rankin</string>
     <string name="convert_button">CONVERT</string>
+    <!-- -->
 
-
+    <string name="error_no_input">You must enter a temperature!</string>
+    <string name="error_scales_not_selected">You must select the temperature scales to convert between!</string>
 
 
 
