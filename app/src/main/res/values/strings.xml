@@ -5,6 +5,8 @@
 
     <!--These are for widgets that never change their text.-->
     <string name="convert_text_view">Convert:</string>
+    <string name="from_text_view">From</string>
+    <string name="to_text_view">To</string>
     <string name="celsius_radiobutton">Celsius</string>
     <string name="fahrenheit_radiobutton">Fahrenheit</string>
     <string name="kelvin_radiobutton">Kelvin</string>

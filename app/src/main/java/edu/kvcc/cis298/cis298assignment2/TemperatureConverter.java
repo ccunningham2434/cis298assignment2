@@ -11,11 +11,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class TemperatureConverter extends AppCompatActivity {
+    // >Keys for the Bundle.
+    private final String KEY_CONVERSION = "conversion";
+    private final String KEY_FORMULA = "formula";
 
+    // >Widgets.
     private EditText mTemperatureInput;
     private RadioGroup mFromGroup;
     private RadioGroup mToGroup;
-    private Button mConvertButton;
     private TextView mConversionTextView;
     private TextView mFormulaTextView;
 
@@ -24,25 +27,30 @@ public class TemperatureConverter extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temperature_converter);
 
-        // >Fill the widgit variables with the actual objects.
+        // >Fill the widget variables with the actual objects.
         mTemperatureInput = (EditText) findViewById(R.id.temperature_input);
         mFromGroup = (RadioGroup) findViewById(R.id.from_temperatures_group);
         mToGroup = (RadioGroup) findViewById(R.id.to_temperatures_group);
-        mConvertButton = (Button) findViewById(R.id.convert_button);
+        Button mConvertButton = (Button) findViewById(R.id.convert_button);
         // >Set the convert button's onClick listener so that it will calculate when pressed.
         mConvertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // >Get the id's of the selected radio buttons and convert the temperature.
-                int fromScale = mFromGroup.getCheckedRadioButtonId();
-                int toScale = mToGroup.getCheckedRadioButtonId();
-                convertTemperature(fromScale, toScale);
+                convertTemperature(mFromGroup.getCheckedRadioButtonId(), mToGroup.getCheckedRadioButtonId());
             }
         });
         mConversionTextView = (TextView) findViewById(R.id.conversion_text_view);
         mFormulaTextView = (TextView) findViewById(R.id.formula_text_view);
+
+        // >Set the displayed text(if the orientation was changed)
+        if (savedInstanceState != null) {
+            mConversionTextView.setText(savedInstanceState.getString(KEY_CONVERSION));
+            mFormulaTextView.setText(savedInstanceState.getString(KEY_FORMULA));
+        }
     }
 
+    // >The int parameters are used to determine the scale that is being converted from and to.
     private void convertTemperature(int fromScaleId, int toScaleId) {
         // >Check if the input was valid.
         if (!validateInput()) {
@@ -91,15 +99,15 @@ public class TemperatureConverter extends AppCompatActivity {
                         break;
                     case R.id.to_fahrenheit_radiobutton:
                         convertedTemperature = TConverter.celsiusToFahrenheit(temperature);
-                        conversionFormula = TConverter.mCelsiusToFarenheitFormula;
+                        conversionFormula = TConverter.CELSIUS_TO_FAHRENHEIT;
                         break;
                     case R.id.to_kelvin_radiobutton:
                         convertedTemperature = TConverter.celsiusToKelvin(temperature);
-                        conversionFormula = TConverter.mCelsiusToKelvinFormula;
+                        conversionFormula = TConverter.CELSIUS_TO_KELVIN;
                         break;
                     case R.id.to_rankin_radiobutton:
                         convertedTemperature = TConverter.celsiusToRankin(temperature);
-                        conversionFormula = TConverter.mCelsiusToRankinFormula;
+                        conversionFormula = TConverter.CELSIUS_TO_RANKINE;
                         break;
                 }
                 break;
@@ -108,18 +116,18 @@ public class TemperatureConverter extends AppCompatActivity {
                 switch (toScaleId) {
                     case R.id.to_celsius_radiobutton:
                         convertedTemperature = TConverter.fahrenheitToCelsius(temperature);
-                        conversionFormula = TConverter.mFahrenheitToCelsius;
+                        conversionFormula = TConverter.FAHRENHEIT_TO_CELSIUS;
                         break;
                     case R.id.to_fahrenheit_radiobutton:
                         sameScales = true;
                         break;
                     case R.id.to_kelvin_radiobutton:
                         convertedTemperature = TConverter.fahrenheitToKelvin(temperature);
-                        conversionFormula = TConverter.mFahrenheitToKelvin;
+                        conversionFormula = TConverter.FAHRENHEIT_TO_KELVIN;
                         break;
                     case R.id.to_rankin_radiobutton:
                         convertedTemperature = TConverter.fahrenheitToRankine(temperature);
-                        conversionFormula = TConverter.mFahrenheitToRankine;
+                        conversionFormula = TConverter.FAHRENHEIT_TO_RANKINE;
                         break;
                 }
                 break;
@@ -128,18 +136,18 @@ public class TemperatureConverter extends AppCompatActivity {
                 switch (toScaleId) {
                     case R.id.to_celsius_radiobutton:
                         convertedTemperature = TConverter.kelvinToCelsius(temperature);
-                        conversionFormula = TConverter.mKelvinToCelsius;
+                        conversionFormula = TConverter.KELVIN_TO_CELSIUS;
                         break;
                     case R.id.to_fahrenheit_radiobutton:
                         convertedTemperature = TConverter.kelvinToFahrenheit(temperature);
-                        conversionFormula = TConverter.mKelvinToFahrenheit;
+                        conversionFormula = TConverter.KELVIN_TO_FAHRENHEIT;
                         break;
                     case R.id.to_kelvin_radiobutton:
                         sameScales = true;
                         break;
                     case R.id.to_rankin_radiobutton:
                         convertedTemperature = TConverter.kelvinToRankine(temperature);
-                        conversionFormula = TConverter.mKelvinToRankine;
+                        conversionFormula = TConverter.KELVIN_TO_RANKINE;
                         break;
                 }
                 break;
@@ -148,15 +156,15 @@ public class TemperatureConverter extends AppCompatActivity {
                 switch (toScaleId) {
                     case R.id.to_celsius_radiobutton:
                         convertedTemperature = TConverter.rankineToCelsius(temperature);
-                        conversionFormula = TConverter.mRankineToCelsius;
+                        conversionFormula = TConverter.RANKINE_TO_CELSIUS;
                         break;
                     case R.id.to_fahrenheit_radiobutton:
                         convertedTemperature = TConverter.rankineToFahrenheit(temperature);
-                        conversionFormula = TConverter.mRankineToFahrenheit;
+                        conversionFormula = TConverter.RANKINE_TO_FAHRENHEIT;
                         break;
                     case R.id.to_kelvin_radiobutton:
                         convertedTemperature = TConverter.rankineToKelvin(temperature);
-                        conversionFormula = TConverter.mRankineToKelvin;
+                        conversionFormula = TConverter.RANKINE_TO_KELVIN;
                         break;
                     case R.id.to_rankin_radiobutton:
                         sameScales = true;
@@ -170,12 +178,8 @@ public class TemperatureConverter extends AppCompatActivity {
             convertedTemperature = temperature;
             conversionFormula = "[" + abvFrom + "] = [" + abvTo + "]";
         }
-        mConversionTextView.setText(Double.toString(temperature) + abvFrom + " = " + Double.toString(convertedTemperature) + abvTo);
+        mConversionTextView.setText(Double.toString(temperature) + "°" + abvFrom + " = " + Double.toString(convertedTemperature) + "°" + abvTo);
         mFormulaTextView.setText(conversionFormula);
-    }
-
-    private void sameConversion() {
-
     }
 
     private boolean validateInput() {
@@ -193,6 +197,18 @@ public class TemperatureConverter extends AppCompatActivity {
     private boolean validateScales() {
         return (mFromGroup.getCheckedRadioButtonId() != -1 && mToGroup.getCheckedRadioButtonId() != -1);
     }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(KEY_CONVERSION, mConversionTextView.getText().toString());
+        outState.putString(KEY_FORMULA, mFormulaTextView.getText().toString());
+    }
+
+
+
 
 
 

@@ -5,21 +5,21 @@ package edu.kvcc.cis298.cis298assignment2;
  */
 
 public class TConverter {
-    public static String mCelsiusToFarenheitFormula = "[F] = ([C] x 9/5) + 32";
-    public static String mCelsiusToKelvinFormula = "[K] = [C] + 273.15";
-    public static String mCelsiusToRankinFormula = "[R] = [C] x 1.8 + 491.67";
+    public static final String CELSIUS_TO_FAHRENHEIT = "[°F] = ([°C] x 9/5) + 32";
+    public static final String CELSIUS_TO_KELVIN = "[°K] = [°C] + 273.15";
+    public static final String CELSIUS_TO_RANKINE = "[°R] = [°C] x 1.8 + 491.67";
 
-    public static String mFahrenheitToCelsius = "[C] = ([F] - 32) x 5/9";
-    public static String mFahrenheitToKelvin = "[K] = ([F] - 32)/1.8 + 273.15";
-    public static String mFahrenheitToRankine = "[R] = ([F] - 32) + 491.67";
+    public static final String FAHRENHEIT_TO_CELSIUS = "[°C] = ([°F] - 32) x 5/9";
+    public static final String FAHRENHEIT_TO_KELVIN = "[°K] = ([°F] - 32)/1.8 + 273.15";
+    public static final String FAHRENHEIT_TO_RANKINE = "[°R] = ([°F] - 32) + 491.67";
 
-    public static String mKelvinToCelsius = "[C] = [K] - 273.15";
-    public static String mKelvinToFahrenheit = "[F] = ([K] - 273.15) x 1.8 + 32";
-    public static String mKelvinToRankine = "[R] = ([K] - 273.15) x 1.8 + 491.67";
+    public static final String KELVIN_TO_CELSIUS = "[°C] = [°K] - 273.15";
+    public static final String KELVIN_TO_FAHRENHEIT = "[°F] = ([°K] - 273.15) x 1.8 + 32";
+    public static final String KELVIN_TO_RANKINE = "[°R] = ([°K] - 273.15) x 1.8 + 491.67";
 
-    public static String mRankineToCelsius = "[C] = ([R] - 491.67) / 1.8";
-    public static String mRankineToFahrenheit = "[F] = ([R] - 491.67) + 32.00";
-    public static String mRankineToKelvin = "[K] = ([R] - 491.67) / 1.8 + 237.15";
+    public static final String RANKINE_TO_CELSIUS = "[°C] = ([°R] - 491.67) / 1.8";
+    public static final String RANKINE_TO_FAHRENHEIT = "[°F] = ([°R] - 491.67) + 32.00";
+    public static final String RANKINE_TO_KELVIN = "[°K] = ([°R] - 491.67) / 1.8 + 237.15";
 
 
     public static double celsiusToFahrenheit(double temperature) {
