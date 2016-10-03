@@ -23,10 +23,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <LinearLayout
+        <RadioGroup
+            android:id="@+id/from_temperatures_group"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/from_text_view"
@@ -35,41 +35,35 @@
                 android:text="@string/from_text_view"
                 android:textSize="20sp"/>
 
-            <RadioGroup
-                android:id="@+id/from_temperatures_group"
+            <RadioButton
+                android:id="@+id/from_celsius_radiobutton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:text="@string/celsius_radiobutton"/>
 
-                <RadioButton
-                    android:id="@+id/from_celsius_radiobutton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/celsius_radiobutton"/>
+            <RadioButton
+                android:id="@+id/from_fahrenheit_radiobutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fahrenheit_radiobutton"/>
 
-                <RadioButton
-                    android:id="@+id/from_fahrenheit_radiobutton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fahrenheit_radiobutton"/>
+            <RadioButton
+                android:id="@+id/from_kelvin_radiobutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kelvin_radiobutton"/>
 
-                <RadioButton
-                    android:id="@+id/from_kelvin_radiobutton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/kelvin_radiobutton"/>
+            <RadioButton
+                android:id="@+id/from_rankin_radiobutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rankin_radiobutton"/>
+        </RadioGroup>
 
-                <RadioButton
-                    android:id="@+id/from_rankin_radiobutton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/rankin_radiobutton"/>
-            </RadioGroup>
-        </LinearLayout>
-
-        <LinearLayout
+        <RadioGroup
+            android:id="@+id/to_temperatures_group"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/to_text_view"
@@ -78,36 +72,30 @@
                 android:text="@string/to_text_view"
                 android:textSize="20dp"/>
 
-            <RadioGroup
-                android:id="@+id/to_temperatures_group"
+            <RadioButton
+                android:id="@+id/to_celsius_radiobutton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:text="@string/celsius_radiobutton"/>
 
-                <RadioButton
-                    android:id="@+id/to_celsius_radiobutton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/celsius_radiobutton"/>
+            <RadioButton
+                android:id="@+id/to_fahrenheit_radiobutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fahrenheit_radiobutton"/>
 
-                <RadioButton
-                    android:id="@+id/to_fahrenheit_radiobutton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fahrenheit_radiobutton"/>
+            <RadioButton
+                android:id="@+id/to_kelvin_radiobutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kelvin_radiobutton"/>
 
-                <RadioButton
-                    android:id="@+id/to_kelvin_radiobutton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/kelvin_radiobutton"/>
-
-                <RadioButton
-                    android:id="@+id/to_rankin_radiobutton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/rankin_radiobutton"/>
-            </RadioGroup>
-         </LinearLayout>
+            <RadioButton
+                android:id="@+id/to_rankin_radiobutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rankin_radiobutton"/>
+        </RadioGroup>
     </LinearLayout>
 
     <Button
@@ -121,7 +109,7 @@
         android:id="@+id/conversion_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_gravity="center"
         android:textSize="24sp"
         android:padding="10dp"/>
 
@@ -129,6 +117,6 @@
         android:id="@+id/formula_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"/>
+        android:layout_gravity="center"/>
 
 </LinearLayout>
