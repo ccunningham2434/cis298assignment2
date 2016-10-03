@@ -43,6 +43,6 @@ The book does not cover how to do work with Radio Buttons. I will talk about it 
 | Total                    | 100    |
 
 ## Outside Resources Used
-None
+Stack overflow, Android Developers site
 ## Known Problems, Issues, And/Or Errors in the Program
 None
